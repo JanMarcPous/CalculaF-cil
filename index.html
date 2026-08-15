@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalculaFácil 🧮</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+
+  <!-- BANNER PRINCIPAL -->
+  <header class="banner-principal">
+    <div class="contenido-banner">
+      <h1>CalculaFácil</h1>
+      <p class="slogan">Tu navaja suiza de utilidades diarias: estudios, finanzas y decisiones rápidas.</p>
+    </div>
+  </header>
+
+  <div class="contenedor-app">
+
+    <!-- PANTALLA 1: MENÚ PRINCIPAL (MINI-CARCASAS DE CALCULADORAS) -->
+    <main id="pantalla-menu" class="pantalla activa">
+      <h2>Elige tu modelo de calculadora</h2>
+      <p class="subtitulo-menu">Selecciona la herramienta que necesitas usar hoy:</p>
+
+      <div class="grid-menu">
+        <!-- MINI CARCASA ESTUDIOS -->
+        <div class="mini-carcasa ambiente-estudiantes" onclick="mostrarPantalla('estudios')">
+          <div class="mini-marca">MODELO <span>ACADÉMICO</span></div>
+          <div class="imagen-tarjeta">
+            <img src="https://img.icons8.com/3d-fluency/180/graduation-cap.png" alt="Estudios">
+          </div>
+          <h3>Hub de Estudios</h3>
+          <p>Notas necesarias y cálculo de medias ponderadas.</p>
+          <button class="btn-entrar">ENCENDER ➔</button>
+        </div>
+
+        <!-- MINI CARCASA FINANZAS -->
+        <div class="mini-carcasa ambiente-compras" onclick="mostrarPantalla('finanzas')">
+          <div class="mini-marca">MODELO <span>FINANCIERO</span></div>
+          <div class="imagen-tarjeta">
+            <img src="https://img.icons8.com/3d-fluency/180/money-bag.png" alt="Finanzas">
+          </div>
+          <h3>Hub de Finanzas</h3>
+          <p>Descuentos, desglose de IVA y sueldo neto.</p>
+          <button class="btn-entrar">ENCENDER ➔</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- PANTALLA 2: HUB DE ESTUDIOS -->
+    <section id="pantalla-estudios" class="pantalla">
+      <button class="btn-volver" onclick="mostrarPantalla('menu')">⬅️ Volver al Menú</button>
+      
+      <div class="carcasa-calculadora ambiente-estudiantes">
+        <div class="marca-calc">CALCULAFÁCIL <span>ACADEMIC HUB</span></div>
+
+        <!-- PESTAÑAS ESTUDIOS -->
+        <div class="pestanas">
+          <button class="tab-btn activa" onclick="cambiarTab('estudios', 'necesaria', this)">Nota Necesaria</button>
+          <button class="tab-btn" onclick="cambiarTab('estudios', 'ponderada', this)">Media Ponderada</button>
+        </div>
+
+        <!-- TAB 1: NOTA NECESARIA -->
+        <div id="subtab-estudios-necesaria" class="subtab-contenido activa">
+          <div class="campo">
+            <label>Nota examen 1 (0-10):</label>
+            <input type="number" id="nota1" step="0.1" min="0" max="10">
+          </div>
+          <div class="campo">
+            <label>Peso examen 1 (%):</label>
+            <input type="number" id="peso1" min="0" max="100">
+          </div>
+          <div class="campo">
+            <label>Peso examen 2 (%):</label>
+            <input type="number" id="peso2" min="0" max="100">
+          </div>
+          <div class="campo">
+            <label>Nota final objetivo:</label>
+            <input type="number" id="notaObjetivo" step="0.1" min="0" max="10">
+          </div>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">NOTA NECESARIA EXAMEN 2</span>
+            <div id="resultadoNota" class="texto-lcd">0.00</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularNotaNecesaria()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarNotaNecesaria()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - NOTA NECESARIA</span>
+            <ul class="lista-historial" id="historial-necesaria">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TAB 2: MEDIA PONDERADA -->
+        <div id="subtab-estudios-ponderada" class="subtab-contenido">
+          <p class="instruccion-tab">Añade tus notas y el % de valor de cada una:</p>
+          <div id="contenedor-filas-ponderada">
+            <div class="fila-dinamica">
+              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
+              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100">
+            </div>
+            <div class="fila-dinamica">
+              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
+              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100">
+            </div>
+          </div>
+
+          <button class="btn-secundario" onclick="AppCalculadora.agregarFilaPonderada()">➕ Añadir otra nota</button>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">MEDIA PONDERADA ACTUAL</span>
+            <div id="resultadoPonderada" class="texto-lcd">0.00</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularMediaPonderada()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarMediaPonderada()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - MEDIA PONDERADA</span>
+            <ul class="lista-historial" id="historial-ponderada">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: HUB DE FINANZAS -->
+    <section id="pantalla-finanzas" class="pantalla">
+      <button class="btn-volver" onclick="mostrarPantalla('menu')">⬅️ Volver al Menú</button>
+      
+      <div class="carcasa-calculadora ambiente-compras">
+        <div class="marca-calc">CALCULAFÁCIL <span>FINANCE HUB</span></div>
+
+        <!-- PESTAÑAS FINANZAS -->
+        <div class="pestanas">
+          <button class="tab-btn activa" onclick="cambiarTab('finanzas', 'descuento', this)">Descuentos</button>
+          <button class="tab-btn" onclick="cambiarTab('finanzas', 'iva', this)">IVA</button>
+          <button class="tab-btn" onclick="cambiarTab('finanzas', 'sueldo', this)">Sueldo Neto</button>
+        </div>
+
+        <!-- TAB 1: DESCUENTOS -->
+        <div id="subtab-finanzas-descuento" class="subtab-contenido activa">
+          <div class="campo">
+            <label>Precio original (€):</label>
+            <input type="number" id="cantidad" step="0.01">
+          </div>
+          <div class="campo">
+            <label>Porcentaje de descuento (%):</label>
+            <input type="number" id="porcentaje">
+          </div>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">PRECIO FINAL</span>
+            <div id="resultado" class="texto-lcd">0.00 €</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularDescuento()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarDescuento()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - DESCUENTOS</span>
+            <ul class="lista-historial" id="historial-descuentos">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TAB 2: IVA -->
+        <div id="subtab-finanzas-iva" class="subtab-contenido">
+          <div class="campo">
+            <label>Operación:</label>
+            <select id="modoIva">
+              <option value="añadir">Añadir IVA al precio base</option>
+              <option value="quitar">Desglosar/Quitar IVA (Saber base)</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Importe (€):</label>
+            <input type="number" id="importeIva" step="0.01">
+          </div>
+          <div class="campo">
+            <label>Tipo de IVA (%):</label>
+            <select id="porcentajeIva">
+              <option value="21">21% (General)</option>
+              <option value="10">10% (Reducido)</option>
+              <option value="4">4% (Superreducido)</option>
+            </select>
+          </div>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">TOTAL CALCULADO</span>
+            <div id="resultadoIva" class="texto-lcd">0.00 €</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularIVA()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarIVA()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - IVA</span>
+            <ul class="lista-historial" id="historial-iva">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TAB 3: SUELDO NETO -->
+        <div id="subtab-finanzas-sueldo" class="subtab-contenido">
+          <div class="campo">
+            <label>Sueldo Bruto Anual (€):</label>
+            <input type="number" id="brutoAnual" step="500" placeholder="Ej: 18000">
+          </div>
+          <div class="campo">
+            <label>Número de pagas:</label>
+            <select id="numPagas">
+              <option value="12">12 pagas</option>
+              <option value="14">14 pagas</option>
+            </select>
+          </div>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">ESTIMACIÓN NETO/MES</span>
+            <div id="resultadoSueldo" class="texto-lcd">0.00 €</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularSueldo()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarSueldo()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - SUELDO NETO</span>
+            <ul class="lista-historial" id="historial-sueldo">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
