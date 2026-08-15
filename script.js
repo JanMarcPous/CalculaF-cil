@@ -42,12 +42,12 @@ const AppCalculadora = {
     }
   },
 
-  // ESTUDIOS: Nota Necesaria
+  // ESTUDIOS: Nota Necesaria (Actualizado con lógica proporcional y control de límites)
   calcularNotaNecesaria() {
     this.reproducirSonido();
     const n1 = parseFloat(document.getElementById("nota1").value);
-    const p1 = parseFloat(document.getElementById("peso1").value) / 100;
-    const p2 = parseFloat(document.getElementById("peso2").value) / 100;
+    const p1 = parseFloat(document.getElementById("peso1").value);
+    const p2 = parseFloat(document.getElementById("peso2").value);
     const nObj = parseFloat(document.getElementById("notaObjetivo").value);
     const display = document.getElementById("resultadoNota");
 
@@ -56,9 +56,25 @@ const AppCalculadora = {
       return;
     }
 
-    const res = ((nObj - (n1 * p1)) / p2).toFixed(2);
-    display.innerText = `🎓 Necesitas: ${res}`;
-    this.actualizarHistorial("historial-necesaria", `Examen 2: necesitas un ${res}`);
+    // Lógica proporcional para evitar fallos si los pesos suman más o menos de 100
+    const pesoTotal = p1 + p2;
+    const peso1Real = p1 / pesoTotal;
+    const peso2Real = p2 / pesoTotal;
+
+    const nota2Necesaria = (nObj - (n1 * peso1Real)) / peso2Real;
+
+    // Control de casos imposibles o superados
+    if (nota2Necesaria > 10) {
+      display.innerHTML = `🎓 Necesitas: <strong>Imposible (¡un ${nota2Necesaria.toFixed(2)}!)</strong>`;
+      this.actualizarHistorial("historial-necesaria", `Examen 2: imposible (${nota2Necesaria.toFixed(2)})`);
+    } else if (nota2Necesaria < 0) {
+      display.innerHTML = `🎓 Necesitas: <strong>¡Ya aprobado!</strong>`;
+      this.actualizarHistorial("historial-necesaria", `Examen 2: ¡Ya has aprobado!`);
+    } else {
+      const res = nota2Necesaria.toFixed(2);
+      display.innerHTML = `🎓 Necesitas: <strong>${res}</strong>`;
+      this.actualizarHistorial("historial-necesaria", `Examen 2: necesitas un ${res}`);
+    }
   },
 
   limpiarNotaNecesaria() {
