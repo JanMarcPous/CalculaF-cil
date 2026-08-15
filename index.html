@@ -62,44 +62,47 @@
           <button class="tab-btn" onclick="cambiarTab('estudios', 'ponderada', this)">Media Ponderada</button>
         </div>
 
+        <!-- TAB 1: NOTA NECESARIA AVANZADA -->
         <div id="subtab-estudios-necesaria" class="subtab-contenido activa">
-    <h3>Calculadora de Nota Necesaria Avanzada</h3>
-    <p>Añade tus notas anteriores y sus pesos:</p>
+          <p class="instruccion-tab">Añade tus notas anteriores y sus pesos:</p>
+          
+          <!-- Contenedor dinámico de exámenes previos -->
+          <div id="contenedor-examenes-previos">
+            <div class="fila-dinamica">
+              <input type="number" class="ex-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
+              <input type="number" class="ex-peso" placeholder="Peso %" min="0" max="100">
+            </div>
+          </div>
 
-    <!-- Contenedor dinámico donde se irán añadiendo las filas de exámenes -->
-    <div id="contenedor-examenes-previos">
-        <div class="fila-dinamica">
-            <input type="number" class="ex-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
-            <input type="number" class="ex-peso" placeholder="Peso %" min="0" max="100">
+          <button class="btn-secundario" onclick="AppCalculadora.agregarFilaExamenPrevio()">➕ Añadir otro examen previo</button>
+
+          <div class="campo" style="margin-top: 15px;">
+            <label>Peso del examen final pendiente (%):</label>
+            <input type="number" id="pesoPendiente" placeholder="Ej: 40" min="0" max="100">
+          </div>
+
+          <div class="campo">
+            <label>Nota final objetivo:</label>
+            <input type="number" id="notaObjetivoMultiples" placeholder="Ej: 7" step="0.1" min="0" max="10">
+          </div>
+
+          <div class="pantalla-lcd">
+            <span class="etiqueta-lcd">NOTA NECESARIA EXAMEN FINAL</span>
+            <div id="resultadoNotaMultiples" class="texto-lcd">🎓 Necesitas: 0.00</div>
+          </div>
+
+          <div class="teclado-tactil">
+            <button class="btn-3d btn-calcular" onclick="AppCalculadora.calcularNotaNecesariaMultiples()">CALCULAR</button>
+            <button class="btn-3d btn-limpiar" onclick="AppCalculadora.limpiarNotaNecesariaMultiples()">BORRAR</button>
+          </div>
+
+          <div class="caja-historial">
+            <span class="titulo-historial">⏱️ HISTORIAL - NOTA NECESARIA</span>
+            <ul class="lista-historial" id="historial-necesaria">
+              <li>No hay operaciones recientes</li>
+            </ul>
+          </div>
         </div>
-    </div>
-
-    <!-- Botón para añadir más exámenes previos -->
-    <button type="button" class="btn-secundario" onclick="AppCalculadora.agregarFilaExamenPrevio()">➕ Añadir otro examen previo</button>
-
-    <div class="campo-grupo" style="margin-top: 15px;">
-        <label>Peso del examen final pendiente (%):</label>
-        <input type="number" id="pesoPendiente" placeholder="Ej: 40" min="0" max="100">
-    </div>
-
-    <div class="campo-grupo">
-        <label>Nota final objetivo:</label>
-        <input type="number" id="notaObjetivoMultiples" placeholder="Ej: 7" step="0.1" min="0" max="10">
-    </div>
-
-    <div class="resultado-box" id="resultadoNotaMultiples">
-        🎓 Necesitas: 0.00
-    </div>
-
-    <div class="botones-accion">
-        <button type="button" class="btn-calcular" onclick="AppCalculadora.calcularNotaNecesariaMultiples()">CALCULAR</button>
-        <button type="button" class="btn-borrar" onclick="AppCalculadora.limpiarNotaNecesariaMultiples()">BORRAR</button>
-    </div>
-
-    <ul id="historial-necesaria" class="historial-lista">
-        <li>No hay operaciones recientes</li>
-    </ul>
-</div>
 
         <!-- TAB 2: MEDIA PONDERADA -->
         <div id="subtab-estudios-ponderada" class="subtab-contenido">
