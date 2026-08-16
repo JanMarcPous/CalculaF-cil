@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CalculaFácil 🧮</title>
+  
+  <!-- SEO BÁSICO PARA GOOGLE -->
+  <title>CalculaFácil 🧮 | Herramienta de Estudios y Finanzas Online</title>
+  <meta name="description" content="CalculaFácil es tu calculadora gratuita online. Gestiona tus notas académicas, calcula medias ponderadas, desglosa IVA, aplica descuentos y estima tu sueldo neto de forma rápida y sencilla.">
+  <meta name="keywords" content="calculadora notas, media ponderada, calcular IVA, calculadora descuentos, calcular sueldo neto, herramientas estudiante">
+  <link rel="canonical" href="https://tu-usuario.github.io/tu-repositorio/"> <!-- REEMPLAZA CON TU URL REAL -->
+
+  <!-- OPEN GRAPH (Para que se vea profesional en redes sociales) -->
+  <meta property="og:title" content="CalculaFácil 🧮 | Utilidades Diarias">
+  <meta property="og:description" content="Calculadora avanzada para estudiantes y finanzas personales. ¡Prueba nuestras herramientas!">
+  <meta property="og:type" content="website">
+
   <link rel="stylesheet" href="estilos.css">
   <script src="./script.js" defer></script>
 </head>
@@ -26,10 +37,10 @@
 
       <div class="grid-menu">
         <!-- MINI CARCASA ESTUDIOS -->
-        <div class="mini-carcasa ambiente-estudiantes" onclick="mostrarPantalla('estudios')">
+        <div class="mini-carcasa ambiente-estudiantes" onclick="mostrarPantalla('estudios')" role="button" aria-label="Abrir calculadora de estudios">
           <div class="mini-marca">MODELO <span>ACADÉMICO</span></div>
           <div class="imagen-tarjeta">
-            <img src="https://img.icons8.com/3d-fluency/180/graduation-cap.png" alt="Estudios">
+            <img src="https://img.icons8.com/3d-fluency/180/graduation-cap.png" alt="Icono birrete académico">
           </div>
           <h3>Hub de Estudios</h3>
           <p>Notas necesarias y cálculo de medias ponderadas.</p>
@@ -37,10 +48,10 @@
         </div>
 
         <!-- MINI CARCASA FINANZAS -->
-        <div class="mini-carcasa ambiente-compras" onclick="mostrarPantalla('finanzas')">
+        <div class="mini-carcasa ambiente-compras" onclick="mostrarPantalla('finanzas')" role="button" aria-label="Abrir calculadora de finanzas">
           <div class="mini-marca">MODELO <span>FINANCIERO</span></div>
           <div class="imagen-tarjeta">
-            <img src="https://img.icons8.com/3d-fluency/180/money-bag.png" alt="Finanzas">
+            <img src="https://img.icons8.com/3d-fluency/180/money-bag.png" alt="Icono bolsa de dinero">
           </div>
           <h3>Hub de Finanzas</h3>
           <p>Descuentos, desglose de IVA y sueldo neto.</p>
@@ -51,7 +62,7 @@
 
     <!-- PANTALLA 2: HUB DE ESTUDIOS -->
     <section id="pantalla-estudios" class="pantalla">
-      <button class="btn-volver" onclick="mostrarPantalla('menu')">⬅️ Volver al Menú</button>
+      <button class="btn-volver" onclick="mostrarPantalla('menu')" aria-label="Volver al menú">⬅️ Volver al Menú</button>
       
       <div class="carcasa-calculadora ambiente-estudiantes">
         <div class="marca-calc">CALCULAFÁCIL <span>ACADEMIC HUB</span></div>
@@ -66,23 +77,22 @@
         <div id="subtab-estudios-necesaria" class="subtab-contenido activa">
           <p class="instruccion-tab">Añade tus notas anteriores y sus pesos:</p>
           
-          <!-- Contenedor dinámico de exámenes previos -->
           <div id="contenedor-examenes-previos">
             <div class="fila-dinamica">
-              <input type="number" class="ex-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
-              <input type="number" class="ex-peso" placeholder="Peso %" min="0" max="100">
+              <input type="number" class="ex-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10" aria-label="Nota anterior">
+              <input type="number" class="ex-peso" placeholder="Peso %" min="0" max="100" aria-label="Peso de la nota">
             </div>
           </div>
 
           <button class="btn-secundario" onclick="AppCalculadora.agregarFilaExamenPrevio()">➕ Añadir otro examen previo</button>
 
           <div class="campo" style="margin-top: 15px;">
-            <label>Peso del examen final pendiente (%):</label>
+            <label for="pesoPendiente">Peso del examen final pendiente (%):</label>
             <input type="number" id="pesoPendiente" placeholder="Ej: 40" min="0" max="100">
           </div>
 
           <div class="campo">
-            <label>Nota final objetivo:</label>
+            <label for="notaObjetivoMultiples">Nota final objetivo:</label>
             <input type="number" id="notaObjetivoMultiples" placeholder="Ej: 7" step="0.1" min="0" max="10">
           </div>
 
@@ -109,12 +119,12 @@
           <p class="instruccion-tab">Añade tus notas y el % de valor de cada una:</p>
           <div id="contenedor-filas-ponderada">
             <div class="fila-dinamica">
-              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
-              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100">
+              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10" aria-label="Nota">
+              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100" aria-label="Peso">
             </div>
             <div class="fila-dinamica">
-              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10">
-              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100">
+              <input type="number" class="p-nota" placeholder="Nota (0-10)" step="0.1" min="0" max="10" aria-label="Nota">
+              <input type="number" class="p-peso" placeholder="Peso %" min="0" max="100" aria-label="Peso">
             </div>
           </div>
 
@@ -142,7 +152,7 @@
 
     <!-- PANTALLA 3: HUB DE FINANZAS -->
     <section id="pantalla-finanzas" class="pantalla">
-      <button class="btn-volver" onclick="mostrarPantalla('menu')">⬅️ Volver al Menú</button>
+      <button class="btn-volver" onclick="mostrarPantalla('menu')" aria-label="Volver al menú">⬅️ Volver al Menú</button>
       
       <div class="carcasa-calculadora ambiente-compras">
         <div class="marca-calc">CALCULAFÁCIL <span>FINANCE HUB</span></div>
@@ -157,11 +167,11 @@
         <!-- TAB 1: DESCUENTOS -->
         <div id="subtab-finanzas-descuento" class="subtab-contenido activa">
           <div class="campo">
-            <label>Precio original (€):</label>
+            <label for="cantidad">Precio original (€):</label>
             <input type="number" id="cantidad" step="0.01">
           </div>
           <div class="campo">
-            <label>Porcentaje de descuento (%):</label>
+            <label for="porcentaje">Porcentaje de descuento (%):</label>
             <input type="number" id="porcentaje">
           </div>
 
@@ -186,18 +196,18 @@
         <!-- TAB 2: IVA -->
         <div id="subtab-finanzas-iva" class="subtab-contenido">
           <div class="campo">
-            <label>Operación:</label>
+            <label for="modoIva">Operación:</label>
             <select id="modoIva">
               <option value="añadir">Añadir IVA al precio base</option>
-              <option value="quitar">Desglosar/Quitar IVA (Saber base)</option>
+              <option value="quitar">Desglosar/Quitar IVA</option>
             </select>
           </div>
           <div class="campo">
-            <label>Importe (€):</label>
+            <label for="importeIva">Importe (€):</label>
             <input type="number" id="importeIva" step="0.01">
           </div>
           <div class="campo">
-            <label>Tipo de IVA (%):</label>
+            <label for="porcentajeIva">Tipo de IVA (%):</label>
             <select id="porcentajeIva">
               <option value="21">21% (General)</option>
               <option value="10">10% (Reducido)</option>
@@ -226,11 +236,11 @@
         <!-- TAB 3: SUELDO NETO -->
         <div id="subtab-finanzas-sueldo" class="subtab-contenido">
           <div class="campo">
-            <label>Sueldo Bruto Anual (€):</label>
+            <label for="brutoAnual">Sueldo Bruto Anual (€):</label>
             <input type="number" id="brutoAnual" step="500" placeholder="Ej: 18000">
           </div>
           <div class="campo">
-            <label>Número de pagas:</label>
+            <label for="numPagas">Número de pagas:</label>
             <select id="numPagas">
               <option value="12">12 pagas</option>
               <option value="14">14 pagas</option>
@@ -258,6 +268,5 @@
     </section>
 
   </div>
-
 </body>
 </html>
